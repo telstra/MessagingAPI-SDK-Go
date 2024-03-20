@@ -1,4 +1,4 @@
-module github.com/telstra-messaging/mes-v3-go-sdk
+module github.com/telstra/MessagingAPI-SDK-Go
 
 go 1.18
 
