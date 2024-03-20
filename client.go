@@ -1,9 +1,9 @@
 /*
-Messaging API v3.1.0
+Messaging API v3.4.3
 
 Send and receive SMS & MMS programmatically, leveraging Australia's leading mobile network. With Telstra's Messaging API, we take out the complexity to allow seamless messaging integration into your app, with just a few lines of code. Our REST API is enterprise grade, allowing you to communicate with engaging SMS & MMS messaging in your web and mobile apps in near real-time on a global scale.
 
-API version: 3.1.0
+
 */
 
 package TelstraMessaging
@@ -40,7 +40,7 @@ var (
 	queryDescape    = strings.NewReplacer("%5B", "[", "%5D", "]")
 )
 
-// APIClient manages communication with the Messaging API v3.1.0 API v3.1.0
+// APIClient manages communication with the Messaging API v3.4.3 API v3.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg    *Configuration

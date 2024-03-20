@@ -1,9 +1,9 @@
 /*
-Messaging API v3.1.0
+Messaging API v3.4.3
 
 Send and receive SMS & MMS programmatically, leveraging Australia's leading mobile network. With Telstra's Messaging API, we take out the complexity to allow seamless messaging integration into your app, with just a few lines of code. Our REST API is enterprise grade, allowing you to communicate with engaging SMS & MMS messaging in your web and mobile apps in near real-time on a global scale.
 
-API version: 3.1.0
+
 */
 
 package TelstraMessaging
@@ -583,14 +583,14 @@ type ApiGetMessagesRequest struct {
 	acceptCharset     *string
 	contentType       *string
 	telstraApiVersion *string
-	limit *int32
-	offset *int32
-	direction *string
-	status *string
-	filter *string
-	reverse *bool
-	startTime *time.Time
-	endTime *time.Time
+	limit             *int32
+	offset            *int32
+	direction         *string
+	status            *string
+	filter            *string
+	reverse           *bool
+	startTime         *time.Time
+	endTime           *time.Time
 }
 
 func (r ApiGetMessagesRequest) ContentLanguage(contentLanguage string) ApiGetMessagesRequest {
@@ -653,19 +653,19 @@ func (r ApiGetMessagesRequest) Filter(filter string) ApiGetMessagesRequest {
 	return r
 }
 
-// If set to **true** the results will be returned in reverse order. Recent messages will be returned first. By default, the results will be returned in the order they were sent/received. 
+// If set to **true** the results will be returned in reverse order. Recent messages will be returned first. By default, the results will be returned in the order they were sent/received.
 func (r ApiGetMessagesRequest) Reverse(reverse bool) ApiGetMessagesRequest {
 	r.reverse = &reverse
 	return r
 }
 
-// By Default messages from last 30 days will be fetched.Use this parameter to fetch the messages from the time you want.  Set the time in London Greenwich Mean Time (adjusting for any time difference) and use ISO format, e.g. \&quot;2024-01-24T15:39:00Z\&quot;.  You can set a time from last 30 days. If you specify a timestamp outside of this limit, the API will return a FIELD_INVALID error. If startTime alone set, messages from this time till current time will be fetched. 
+// By Default messages from last 30 days will be fetched.Use this parameter to fetch the messages from the time you want.  Set the time in London Greenwich Mean Time (adjusting for any time difference) and use ISO format, e.g. \&quot;2024-01-24T15:39:00Z\&quot;.  You can set a time from last 30 days. If you specify a timestamp outside of this limit, the API will return a FIELD_INVALID error. If startTime alone set, messages from this time till current time will be fetched.
 func (r ApiGetMessagesRequest) StartTime(startTime time.Time) ApiGetMessagesRequest {
 	r.startTime = &startTime
 	return r
 }
 
-// By Default messages from last 30 days will be fetched. Use this parameter to fetch the messages till the time you want.  Set the time in London Greenwich Mean Time (adjusting for any time difference) and use ISO format, e.g. \&quot;2024-01-24T16:39:00Z\&quot;.  You can set a time from last 30 days and endTime should be after startTime (if set). If you specify a timestamp outside of this limit, the API will return a FIELD_INVALID error. 
+// By Default messages from last 30 days will be fetched. Use this parameter to fetch the messages till the time you want.  Set the time in London Greenwich Mean Time (adjusting for any time difference) and use ISO format, e.g. \&quot;2024-01-24T16:39:00Z\&quot;.  You can set a time from last 30 days and endTime should be after startTime (if set). If you specify a timestamp outside of this limit, the API will return a FIELD_INVALID error.
 func (r ApiGetMessagesRequest) EndTime(endTime time.Time) ApiGetMessagesRequest {
 	r.endTime = &endTime
 	return r
