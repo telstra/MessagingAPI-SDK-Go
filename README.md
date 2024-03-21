@@ -186,7 +186,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -249,7 +249,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -318,7 +318,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -400,7 +400,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -486,7 +486,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -556,7 +556,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -628,7 +628,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -708,7 +708,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -783,7 +783,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -881,7 +881,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -994,7 +994,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -1062,7 +1062,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -1163,7 +1163,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )	
 	
 configuration := msg_sdk.NewConfiguration()
@@ -1248,7 +1248,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -1313,7 +1313,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -1398,7 +1398,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -1468,7 +1468,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
@@ -1537,7 +1537,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )	
 
 configuration := msg_sdk.NewConfiguration()
@@ -1603,7 +1603,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go"
+	msg_sdk "github.com/telstra/MessagingAPI-SDK-Go/v3"
 )
 
 configuration := msg_sdk.NewConfiguration()
