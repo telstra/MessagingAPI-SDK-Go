@@ -33,12 +33,17 @@ func Test_TelstraMessaging_FreeTrialNumbersAPIService(t *testing.T) {
 	clientId := "YOUR CLIENT ID"
 	clientSecret := "YOUR CLIENT SECRET"
 
-	oauthResult, _, _ := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+	oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 		ClientId(clientId).
 		ClientSecret(clientSecret).
 		GrantType(grantType).
 		Scope(scope).
 		Execute()
+
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
 
 	accessToken := *oauthResult.AccessToken
 	authorization := "Bearer " + accessToken
@@ -58,6 +63,11 @@ func Test_TelstraMessaging_FreeTrialNumbersAPIService(t *testing.T) {
 			TelstraApiVersion(telstraApiVersion).
 			CreateTrialNumbersRequest(*createTrialNumbersRequest).
 			Execute()
+
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		fmt.Printf("resp Result: %+v\n", resp)
@@ -80,7 +90,11 @@ func Test_TelstraMessaging_FreeTrialNumbersAPIService(t *testing.T) {
 			TelstraApiVersion(telstraApiVersion).
 			Execute()
 
-		// Print out the entire oauthResult object
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		fmt.Printf("resp Result: %+v\n", resp)
 		fmt.Printf("resp err: %+v\n", err)

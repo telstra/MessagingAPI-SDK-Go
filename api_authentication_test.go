@@ -34,6 +34,11 @@ func Test_TelstraMessaging_AuthenticationAPIService(t *testing.T) {
 			Scope(scope).
 			Execute()
 
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+
 		fmt.Printf("Access Token: %s\n", *oauthResult.AccessToken)
 		fmt.Printf("OAuth Result: %+v\n", oauthResult)
 		assert.NoError(t, err, "Error encountered: %v", err)

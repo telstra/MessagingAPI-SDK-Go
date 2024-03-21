@@ -28,46 +28,7 @@ To use a proxy, set the environment variable `HTTP_PROXY`:
 os.Setenv("HTTP_PROXY", "http://proxy_name:proxy_port")
 ```
 
-## Configuration of Server URL
 
-Default configuration comes with `Servers` field that contains server objects as defined in the OpenAPI specification.
-
-### Select Server Configuration
-
-For using other server than the one defined on index 0 set context value `sw.ContextServerIndex` of type `int`.
-
-```golang
-ctx := context.WithValue(context.Background(), TelstraMessaging.ContextServerIndex, 1)
-```
-
-### Templated Server URL
-
-Templated server URL is formatted using default variables from configuration or from context value `sw.ContextServerVariables` of type `map[string]string`.
-
-```golang
-ctx := context.WithValue(context.Background(), TelstraMessaging.ContextServerVariables, map[string]string{
-	"basePath": "v2",
-})
-```
-
-Note, enum values are always validated and all unused variables are silently ignored.
-
-### URLs Configuration per Operation
-
-Each operation can use different server URL defined using `OperationServers` map in the `Configuration`.
-An operation is uniquely identified by `"{classname}Service.{nickname}"` string.
-Similar rules for overriding default operation server index and variables applies by using `sw.ContextOperationServerIndices` and `sw.ContextOperationServerVariables` context maps.
-
-```golang
-ctx := context.WithValue(context.Background(), TelstraMessaging.ContextOperationServerIndices, map[string]int{
-	"{classname}Service.{nickname}": 2,
-})
-ctx = context.WithValue(context.Background(), TelstraMessaging.ContextOperationServerVariables, map[string]map[string]string{
-	"{classname}Service.{nickname}": {
-		"port": "8443",
-	},
-})
-```
 
 ## Documentation for API Endpoints
 
@@ -205,8 +166,16 @@ oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Backgrou
 	Scope(scope).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("Access Token: %s\n", *oauthResult.AccessToken)
 fmt.Printf("OAuth Result: %+v\n", oauthResult)
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "Response should not be nil")
+assert.NotEmpty(t, oauthResult.AccessToken, "Access token should not be empty")
 
 ```
 
@@ -261,12 +230,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -289,9 +263,17 @@ resp, httpRes, err := apiClient.FreeTrialNumbersAPI.CreateTrialNumbers(context.B
 	CreateTrialNumbersRequest(*createTrialNumbersRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
 fmt.Printf("resp err: %+v\n", err)
+assert.Equal(t, 201, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NotNil(t, resp, "resp should not be nil")
 
 ```
 
@@ -330,12 +312,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -354,10 +341,17 @@ resp, httpRes, err := apiClient.FreeTrialNumbersAPI.GetTrialNumbers(context.Back
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
-// Print out the entire oauthResult object
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
 fmt.Printf("resp err: %+v\n", err)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NotNil(t, resp, "resp should not be nil")
 
 ```
 
@@ -412,12 +406,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -452,9 +451,17 @@ resp, httpRes, err := apiClient.VirtualNumbersAPI.AssignNumber(context.Backgroun
 	AssignNumberRequest(*assignNumberRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
 fmt.Printf("resp err: %+v\n", err)
+assert.Equal(t, 201, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NotNil(t, resp, "resp should not be nil")
 
 ```
 
@@ -498,12 +505,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -522,9 +534,17 @@ resp, httpRes, err := apiClient.VirtualNumbersAPI.GetVirtualNumber(context.Backg
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
 fmt.Printf("resp err: %+v\n", err)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NotNil(t, resp, "resp should not be nil")
 
 ```
 
@@ -568,12 +588,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -592,9 +617,17 @@ resp, httpRes, err := apiClient.VirtualNumbersAPI.GetNumbers(context.Background(
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
 fmt.Printf("resp err: %+v\n", err)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NotNil(t, resp, "resp should not be nil")
 ```
 
 ### Update a Virtual Number
@@ -640,12 +673,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -680,9 +718,17 @@ resp, httpRes, err := apiClient.VirtualNumbersAPI.UpdateNumber(context.Backgroun
 	UpdateNumberRequest(*updateNumberRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
 fmt.Printf("resp err: %+v\n", err)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NotNil(t, resp, "resp should not be nil")
 
 ```
 
@@ -720,12 +766,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -744,7 +795,15 @@ httpRes, err := apiClient.VirtualNumbersAPI.DeleteNumber(context.Background(), v
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
+assert.Equal(t, 204, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
 
 ```
 
@@ -795,12 +854,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -819,8 +883,18 @@ resp, httpRes, err := apiClient.VirtualNumbersAPI.GetRecipientOptouts(context.Ba
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
+
 
 ```
 
@@ -893,12 +967,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -947,8 +1026,17 @@ resp, httpRes, err := apiClient.MessagesAPI.SendMessages(context.Background()).
 	SendMessagesRequest(*sendMessagesRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 201, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 
 ```
 
@@ -1006,12 +1094,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1030,8 +1123,17 @@ resp, httpRes, err := apiClient.MessagesAPI.GetMessageById(context.Background(),
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 ```
 
 ### Get all Messages
@@ -1074,12 +1176,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1089,17 +1196,29 @@ contentType := "application/json"
 contentLanguage := "en-au"
 telstraApiVersion := "3.1.0"
 
-resp, httpRes, err := apiClient.MessagesAPI.GetMessages(context.Background()).
-	Accept(accept).
-	AcceptCharset(acceptCharset).
-	Authorization(authorization).
-	ContentLanguage(contentLanguage).
-	ContentType(contentType).
-	TelstraApiVersion(telstraApiVersion).
-	Execute()
+	resp, httpRes, err := apiClient.MessagesAPI.GetMessages(context.Background()).
+		Accept(accept).
+		AcceptCharset(acceptCharset).
+		Authorization(authorization).
+		ContentLanguage(contentLanguage).
+		ContentType(contentType).
+		TelstraApiVersion(telstraApiVersion).
+		Reverse(true).
+		StartTime(time.Date(2024, 2, 23, 5, 10, 6, 0, time.UTC)).
+		EndTime(time.Date(2024, 2, 29, 5, 10, 6, 0, time.UTC)).
+		Execute()
 
-fmt.Printf("httpRes Result: %+v\n", httpRes)
-fmt.Printf("resp Result: %+v\n", resp)
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+
+	fmt.Printf("httpRes Result: %+v\n", httpRes)
+	fmt.Printf("resp Result: %+v\n", resp)
+	assert.Equal(t, 200, httpRes.StatusCode)
+	assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+	assert.NoError(t, err, "Error encountered: %v", err)
+	assert.NotNil(t, resp, "resp should not be nil")
 		
 ```
 
@@ -1175,12 +1294,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1220,8 +1344,17 @@ resp, httpRes, err := apiClient.MessagesAPI.UpdateMessageById(context.Background
 	UpdateMessageByIdRequest(*updateMessageByIdRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 ```
 
 ### Update Message Tags
@@ -1260,12 +1393,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+		
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}		
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1287,7 +1425,15 @@ httpRes, err := apiClient.MessagesAPI.UpdateMessageTags(context.Background(), me
 	UpdateMessageTagsRequest(*updateMessageTagsRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
+assert.Equal(t, 204, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
 ```
 
 ### Delete a Message
@@ -1325,12 +1471,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1349,7 +1500,15 @@ httpRes, err := apiClient.MessagesAPI.DeleteMessageById(context.Background(), me
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
+assert.Equal(t, 204, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
 ```
 
 ## Reports
@@ -1410,12 +1569,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1436,8 +1600,17 @@ resp, httpRes, err := apiClient.ReportsAPI.MessagesReport(context.Background()).
 	MessagesReportRequest(*messageReportRequest).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 201, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 ```
 
 
@@ -1480,12 +1653,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1505,8 +1683,17 @@ resp, httpRes, err := apiClient.ReportsAPI.GetReport(context.Background(), repor
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 ```
 
 ### Fetch all reports
@@ -1549,12 +1736,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1574,8 +1766,17 @@ resp, httpRes, err := apiClient.ReportsAPI.GetReports(context.Background()).
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 ```
 
 ## Health Check
@@ -1615,12 +1816,17 @@ clientSecret := "YOUR CLIENT SECRET"
 grantType := "client_credentials"
 scope := "free-trial-numbers:read free-trial-numbers:write messages:read messages:write virtual-numbers:read virtual-numbers:write reports:read reports:write"
 
-oauthResult, resp, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 	ClientId(clientId).
 	ClientSecret(clientSecret).
 	GrantType(grantType).
 	Scope(scope).
 	Execute()
+	
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}	
 
 accessToken := *oauthResult.AccessToken
 authorization := "Bearer " + accessToken
@@ -1631,8 +1837,17 @@ resp, httpRes, err := apiClient.HealthCheckAPI.HealthCheck(context.Background())
 	TelstraApiVersion(telstraApiVersion).
 	Execute()
 
+if err != nil {
+	fmt.Println("Error:", err)
+	return
+}
+
 fmt.Printf("httpRes Result: %+v\n", httpRes)
 fmt.Printf("resp Result: %+v\n", resp)
+assert.Equal(t, 200, httpRes.StatusCode)
+assert.NotEmpty(t, httpRes, "httpRes should not be empty")
+assert.NoError(t, err, "Error encountered: %v", err)
+assert.NotNil(t, resp, "resp should not be nil")
 
 
 ```

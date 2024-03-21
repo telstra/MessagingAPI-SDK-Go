@@ -36,12 +36,17 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 	clientId := "YOUR CLIENT ID"
 	clientSecret := "YOUR CLIENT SECRET"
 
-	oauthResult, _, _ := apiClient.AuthenticationAPI.AuthToken(context.Background()).
+	oauthResult, _, err := apiClient.AuthenticationAPI.AuthToken(context.Background()).
 		ClientId(clientId).
 		ClientSecret(clientSecret).
 		GrantType(grantType).
 		Scope(scope).
 		Execute()
+
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
 
 	accessToken := *oauthResult.AccessToken
 	authorization := "Bearer " + accessToken
@@ -56,6 +61,11 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 			ContentType(contentType).
 			TelstraApiVersion(telstraApiVersion).
 			Execute()
+
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		assert.Equal(t, 204, httpRes.StatusCode)
@@ -76,6 +86,11 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 			ContentType(contentType).
 			TelstraApiVersion(telstraApiVersion).
 			Execute()
+
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		fmt.Printf("resp Result: %+v\n", resp)
@@ -99,6 +114,11 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 			StartTime(time.Date(2024, 2, 23, 5, 10, 6, 0, time.UTC)).
 			EndTime(time.Date(2024, 2, 29, 5, 10, 6, 0, time.UTC)).
 			Execute()
+
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		fmt.Printf("resp Result: %+v\n", resp)
@@ -152,6 +172,11 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 			SendMessagesRequest(*sendMessagesRequest).
 			Execute()
 
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		fmt.Printf("resp Result: %+v\n", resp)
 		assert.Equal(t, 201, httpRes.StatusCode)
@@ -197,6 +222,11 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 			UpdateMessageByIdRequest(*updateMessageByIdRequest).
 			Execute()
 
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
+
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		fmt.Printf("resp Result: %+v\n", resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
@@ -220,6 +250,11 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 			TelstraApiVersion(telstraApiVersion).
 			UpdateMessageTagsRequest(*updateMessageTagsRequest).
 			Execute()
+
+		if err != nil {
+			fmt.Println("Error:", err)
+			return
+		}
 
 		fmt.Printf("httpRes Result: %+v\n", httpRes)
 		assert.Equal(t, 204, httpRes.StatusCode)
