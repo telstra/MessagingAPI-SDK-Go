@@ -93,10 +93,11 @@ Note that Virtual Numbers used in v2 of the Messaging API cannot be used to send
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAssignNumberRequest
 */
-func (a *VirtualNumbersAPIService) AssignNumber(ctx context.Context) ApiAssignNumberRequest {
+func (a *VirtualNumbersAPIService) AssignNumber(ctx context.Context, authorization string) ApiAssignNumberRequest {
 	return ApiAssignNumberRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 
@@ -381,11 +382,12 @@ Use **virtual-number** to remove a Virtual Number that's been assigned to your a
 	@param virtualNumber Write the Virtual Number here, using national format (e.g. 0412345678).
 	@return ApiDeleteNumberRequest
 */
-func (a *VirtualNumbersAPIService) DeleteNumber(ctx context.Context, virtualNumber string) ApiDeleteNumberRequest {
+func (a *VirtualNumbersAPIService) DeleteNumber(ctx context.Context, virtualNumber string, authorization string) ApiDeleteNumberRequest {
 	return ApiDeleteNumberRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		virtualNumber: virtualNumber,
+		authorization: &authorization,
 	}
 }
 
@@ -667,10 +669,11 @@ Use this endpoint to fetch all Virtual Numbers currently assigned to your accoun
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetNumbersRequest
 */
-func (a *VirtualNumbersAPIService) GetNumbers(ctx context.Context) ApiGetNumbersRequest {
+func (a *VirtualNumbersAPIService) GetNumbers(ctx context.Context, authorization string) ApiGetNumbersRequest {
 	return ApiGetNumbersRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 
@@ -963,11 +966,12 @@ Recipients can opt out at any time by sending a message with industry standard k
 	@param virtualNumber Write the Virtual Number here, using national format (e.g. 0412345678).
 	@return ApiGetRecipientOptoutsRequest
 */
-func (a *VirtualNumbersAPIService) GetRecipientOptouts(ctx context.Context, virtualNumber string) ApiGetRecipientOptoutsRequest {
+func (a *VirtualNumbersAPIService) GetRecipientOptouts(ctx context.Context, virtualNumber string, authorization string) ApiGetRecipientOptoutsRequest {
 	return ApiGetRecipientOptoutsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		virtualNumber: virtualNumber,
+		authorization: &authorization,
 	}
 }
 
@@ -1248,11 +1252,12 @@ Fetch the tags, replyCallbackUrl and lastUse date for a Virtual Number.
 	@param virtualNumber Write the Virtual Number here, using national format (e.g. 0412345678).
 	@return ApiGetVirtualNumberRequest
 */
-func (a *VirtualNumbersAPIService) GetVirtualNumber(ctx context.Context, virtualNumber string) ApiGetVirtualNumberRequest {
+func (a *VirtualNumbersAPIService) GetVirtualNumber(ctx context.Context, virtualNumber string, authorization string) ApiGetVirtualNumberRequest {
 	return ApiGetVirtualNumberRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		virtualNumber: virtualNumber,
+		authorization: &authorization,
 	}
 }
 
@@ -1535,11 +1540,12 @@ This request body will override the original POST/ virtual-numbers call.
 	@param virtualNumber Write the Virtual Number here, using national format (e.g. 0412345678).
 	@return ApiUpdateNumberRequest
 */
-func (a *VirtualNumbersAPIService) UpdateNumber(ctx context.Context, virtualNumber string) ApiUpdateNumberRequest {
+func (a *VirtualNumbersAPIService) UpdateNumber(ctx context.Context, virtualNumber string, authorization string) ApiUpdateNumberRequest {
 	return ApiUpdateNumberRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		virtualNumber: virtualNumber,
+		authorization: &authorization,
 	}
 }
 

@@ -31,9 +31,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 
 	t.Run("Test MessagesAPIService DeleteMessageById", func(t *testing.T) {
 		//t.Skip("skip test") // remove to run test
-		messagesApi := apiClient.MessagesAPI.DeleteMessageById(context.Background(), messageId)
-		messagesApi.authorization = &authorization
-
+		messagesApi := apiClient.MessagesAPI.DeleteMessageById(context.Background(), messageId, authorization)
 		httpRes, err := messagesApi.DeleteMessageById()
 
 		if err != nil {
@@ -52,9 +50,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 
 		//t.Skip("skip test") // remove to run test
 
-		messagesApi := apiClient.MessagesAPI.GetMessageById(context.Background(), messageId)
-		messagesApi.authorization = &authorization
-
+		messagesApi := apiClient.MessagesAPI.GetMessageById(context.Background(), messageId, authorization)
 		resp, httpRes, err := messagesApi.GetMessageById()
 
 		if err != nil {
@@ -73,8 +69,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 
 	t.Run("Test MessagesAPIService GetMessages", func(t *testing.T) {
 
-		messagesApi := apiClient.MessagesAPI.GetMessages(context.Background())
-		messagesApi.authorization = &authorization
+		messagesApi := apiClient.MessagesAPI.GetMessages(context.Background(), authorization)
 		reverse := true
 		messagesApi.reverse = &reverse
 		startTime := time.Now().AddDate(0, 0, -5).UTC()
@@ -116,6 +111,18 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 		sendMessagesRequest.SetRetryTimeout(10)
 		sendMessagesRequest.SetStatusCallbackUrl("http://www.example.com")
 
+		multimedia1 := Multimedia{
+			Type:     "image/jpeg",
+			FileName: "image/jpeg",
+			Payload:  "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
+		}
+		multimedia2 := Multimedia{
+			Type:     "image/jpeg",
+			FileName: "image/jpeg",
+			Payload:  "iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==",
+		}
+		sendMessagesRequest.SetMultimedia([]Multimedia{multimedia1, multimedia2})
+
 		tags := []string{
 			"ip",
 			"deserunt exercitation",
@@ -133,9 +140,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 
 		sendMessagesRequest.SetTags(tags)
 
-		messagesApi := apiClient.MessagesAPI.SendMessages(context.Background())
-		messagesApi.authorization = &authorization
-
+		messagesApi := apiClient.MessagesAPI.SendMessages(context.Background(), authorization)
 		resp, httpRes, err := messagesApi.SendMessages(*sendMessagesRequest)
 
 		if err != nil {
@@ -178,9 +183,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 		}
 		updateMessageByIdRequest.SetTags(tags)
 
-		messagesApi := apiClient.MessagesAPI.UpdateMessageById(context.Background(), messageId)
-		messagesApi.authorization = &authorization
-
+		messagesApi := apiClient.MessagesAPI.UpdateMessageById(context.Background(), messageId, authorization)
 		resp, httpRes, err := messagesApi.UpdateMessageById(*updateMessageByIdRequest)
 
 		if err != nil {
@@ -202,9 +205,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 		tags := []string{"marketing", "SMS"}
 		updateMessageTagsRequest := NewUpdateMessageTagsRequest(tags)
 
-		messagesApi := apiClient.MessagesAPI.UpdateMessageTags(context.Background(), messageId)
-		messagesApi.authorization = &authorization
-
+		messagesApi := apiClient.MessagesAPI.UpdateMessageTags(context.Background(), messageId, authorization)
 		httpRes, err := messagesApi.UpdateMessageTags(*updateMessageTagsRequest)
 
 		if err != nil {

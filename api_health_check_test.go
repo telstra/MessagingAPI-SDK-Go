@@ -29,9 +29,7 @@ func Test_TelstraMessaging_HealthCheckAPIService(t *testing.T) {
 
 		//t.Skip("skip test") // remove to run test
 
-		healthCheckApi := apiClient.HealthCheckAPI.HealthCheck(context.Background())
-		healthCheckApi.authorization = &authorization
-
+		healthCheckApi := apiClient.HealthCheckAPI.HealthCheck(context.Background(), authorization)
 		resp, httpRes, err := healthCheckApi.HealthCheck()
 
 		if err != nil {

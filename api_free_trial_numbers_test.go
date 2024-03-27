@@ -32,9 +32,7 @@ func Test_TelstraMessaging_FreeTrialNumbersAPIService(t *testing.T) {
 		createTrialNumbersRequestFreeTrialNumbers := ArrayOfStringAsCreateTrialNumbersRequestFreeTrialNumbers(&trialNumbers)
 		createTrialNumbersRequest := NewCreateTrialNumbersRequest(createTrialNumbersRequestFreeTrialNumbers)
 
-		trialNumbersApi := apiClient.FreeTrialNumbersAPI.CreateTrialNumbers(context.Background())
-		trialNumbersApi.authorization = &authorization
-
+		trialNumbersApi := apiClient.FreeTrialNumbersAPI.CreateTrialNumbers(context.Background(), authorization)
 		resp, httpRes, err := trialNumbersApi.CreateTrialNumbers(*createTrialNumbersRequest)
 
 		if err != nil {
@@ -54,9 +52,7 @@ func Test_TelstraMessaging_FreeTrialNumbersAPIService(t *testing.T) {
 	t.Run("Test FreeTrialNumbersAPIService GetTrialNumbers", func(t *testing.T) {
 
 		//t.Skip("skip test")
-		trialNumbersApi := apiClient.FreeTrialNumbersAPI.GetTrialNumbers(context.Background())
-		trialNumbersApi.authorization = &authorization
-
+		trialNumbersApi := apiClient.FreeTrialNumbersAPI.GetTrialNumbers(context.Background(), authorization)
 		resp, httpRes, err := trialNumbersApi.GetTrialNumbers()
 
 		if err != nil {

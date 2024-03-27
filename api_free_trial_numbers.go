@@ -98,10 +98,11 @@ Note that you can only message mobile numbers that have been added to your Free 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateTrialNumbersRequest
 */
-func (a *FreeTrialNumbersAPIService) CreateTrialNumbers(ctx context.Context) ApiCreateTrialNumbersRequest {
+func (a *FreeTrialNumbersAPIService) CreateTrialNumbers(ctx context.Context, authorization string) ApiCreateTrialNumbersRequest {
 	return ApiCreateTrialNumbersRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 
@@ -382,10 +383,11 @@ If you're using a paid plan, there's no limit to the number of recipients that y
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetTrialNumbersRequest
 */
-func (a *FreeTrialNumbersAPIService) GetTrialNumbers(ctx context.Context) ApiGetTrialNumbersRequest {
+func (a *FreeTrialNumbersAPIService) GetTrialNumbers(ctx context.Context, authorization string) ApiGetTrialNumbersRequest {
 	return ApiGetTrialNumbersRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 

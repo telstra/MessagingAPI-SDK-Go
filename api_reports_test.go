@@ -33,9 +33,7 @@ func Test_TelstraMessaging_ReportsAPIService(t *testing.T) {
 		//t.Skip("skip test") // remove to run test
 		reportId := "c22d2050-eb37-11ee-ad5e-3d9263246ccb"
 
-		reportsApi := apiClient.ReportsAPI.GetReport(context.Background(), reportId)
-		reportsApi.authorization = &authorization
-
+		reportsApi := apiClient.ReportsAPI.GetReport(context.Background(), reportId, authorization)
 		resp, httpRes, err := reportsApi.GetReport()
 
 		if err != nil {
@@ -55,9 +53,7 @@ func Test_TelstraMessaging_ReportsAPIService(t *testing.T) {
 	t.Run("Test ReportsAPIService GetReports", func(t *testing.T) {
 
 		//t.Skip("skip test") // remove to run test
-		reportsApi := apiClient.ReportsAPI.GetReports(context.Background())
-		reportsApi.authorization = &authorization
-
+		reportsApi := apiClient.ReportsAPI.GetReports(context.Background(), authorization)
 		resp, httpRes, err := reportsApi.GetReports()
 
 		if err != nil {
@@ -85,9 +81,7 @@ func Test_TelstraMessaging_ReportsAPIService(t *testing.T) {
 		oneDayAgoFormatted := oneDayAgo.Format("2006-01-02")
 		messageReportRequest := NewMessagesReportRequest(threeDaysAgoFormatted, oneDayAgoFormatted)
 
-		reportsApi := apiClient.ReportsAPI.MessagesReport(context.Background())
-		reportsApi.authorization = &authorization
-
+		reportsApi := apiClient.ReportsAPI.MessagesReport(context.Background(), authorization)
 		resp, httpRes, err := reportsApi.MessagesReport(*messageReportRequest)
 
 		if err != nil {

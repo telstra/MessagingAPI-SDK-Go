@@ -48,9 +48,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 		assignNumberRequest.SetReplyCallbackUrl("http://www.example.com")
 		assignNumberRequest.SetTags(tags)
 
-		vnApi := apiClient.VirtualNumbersAPI.AssignNumber(context.Background())
-		vnApi.authorization = &authorization
-
+		vnApi := apiClient.VirtualNumbersAPI.AssignNumber(context.Background(), authorization)
 		resp, httpRes, err := vnApi.AssignNumber(*assignNumberRequest)
 
 		if err != nil {
@@ -69,9 +67,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 
 	t.Run("Test VirtualNumbersAPIService DeleteNumber", func(t *testing.T) {
 
-		vnApi := apiClient.VirtualNumbersAPI.DeleteNumber(context.Background(), virtualNumber)
-		vnApi.authorization = &authorization
-
+		vnApi := apiClient.VirtualNumbersAPI.DeleteNumber(context.Background(), virtualNumber, authorization)
 		httpRes, err := vnApi.DeleteNumber()
 
 		if err != nil {
@@ -90,9 +86,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 
 		//t.Skip("skip test") // remove to run test
 
-		vnApi := apiClient.VirtualNumbersAPI.GetNumbers(context.Background())
-		vnApi.authorization = &authorization
-
+		vnApi := apiClient.VirtualNumbersAPI.GetNumbers(context.Background(), authorization)
 		resp, httpRes, err := vnApi.GetNumbers()
 
 		if err != nil {
@@ -112,9 +106,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 	t.Run("Test VirtualNumbersAPIService GetRecipientOptouts", func(t *testing.T) {
 
 		//t.Skip("skip test") // remove to run test
-		vnApi := apiClient.VirtualNumbersAPI.GetRecipientOptouts(context.Background(), virtualNumber)
-		vnApi.authorization = &authorization
-
+		vnApi := apiClient.VirtualNumbersAPI.GetRecipientOptouts(context.Background(), virtualNumber, authorization)
 		resp, httpRes, err := vnApi.GetRecipientOptouts()
 
 		if err != nil {
@@ -135,9 +127,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 
 		//t.Skip("skip test") // remove to run test
 
-		vnApi := apiClient.VirtualNumbersAPI.GetVirtualNumber(context.Background(), virtualNumber)
-		vnApi.authorization = &authorization
-
+		vnApi := apiClient.VirtualNumbersAPI.GetVirtualNumber(context.Background(), virtualNumber, authorization)
 		resp, httpRes, err := vnApi.GetVirtualNumber()
 
 		if err != nil {
@@ -174,9 +164,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 		}
 		updateNumberRequest.SetTags(tags)
 
-		vnApi := apiClient.VirtualNumbersAPI.UpdateNumber(context.Background(), virtualNumber)
-		vnApi.authorization = &authorization
-
+		vnApi := apiClient.VirtualNumbersAPI.UpdateNumber(context.Background(), virtualNumber, authorization)
 		resp, httpRes, err := vnApi.UpdateNumber(*updateNumberRequest)
 
 		if err != nil {

@@ -50,10 +50,11 @@ Use this endpoint to check the operational status of the messaging service. A 20
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiHealthCheckRequest
 */
-func (a *HealthCheckAPIService) HealthCheck(ctx context.Context) ApiHealthCheckRequest {
+func (a *HealthCheckAPIService) HealthCheck(ctx context.Context, authorization string) ApiHealthCheckRequest {
 	return ApiHealthCheckRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 

@@ -30,8 +30,8 @@ func SetRequestParams() *RequestParams {
 }
 
 func GetAuthorization(apiClient *APIClient, clientId string, clientSecret string) (string, error) {
-	authApi := apiClient.AuthenticationAPI.AuthToken(context.Background())
-	oauthResult, _, err := authApi.GetAuthToken(clientId, clientSecret)
+	authApi := apiClient.AuthenticationAPI.AuthToken(context.Background(), clientId, clientSecret)
+	oauthResult, _, err := authApi.AuthToken()
 	if err != nil {
 		return "", err
 	}

@@ -86,11 +86,12 @@ Fetch a download link for a report generated with POST /reports/{reportId} using
 	@param reportId Use the reportId returned in the POST /reports/{reportType} response.
 	@return ApiGetReportRequest
 */
-func (a *ReportsAPIService) GetReport(ctx context.Context, reportId string) ApiGetReportRequest {
+func (a *ReportsAPIService) GetReport(ctx context.Context, reportId string, authorization string) ApiGetReportRequest {
 	return ApiGetReportRequest{
-		ApiService: a,
-		ctx:        ctx,
-		reportId:   reportId,
+		ApiService:    a,
+		ctx:           ctx,
+		reportId:      reportId,
+		authorization: &authorization,
 	}
 }
 
@@ -363,10 +364,11 @@ Fetch details of all reports recently generated for your account. Use it to chec
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetReportsRequest
 */
-func (a *ReportsAPIService) GetReports(ctx context.Context) ApiGetReportsRequest {
+func (a *ReportsAPIService) GetReports(ctx context.Context, authorization string) ApiGetReportsRequest {
 	return ApiGetReportsRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 
@@ -631,10 +633,11 @@ Once your report is generated, it will be available for download for one week. T
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiMessagesReportRequest
 */
-func (a *ReportsAPIService) MessagesReport(ctx context.Context) ApiMessagesReportRequest {
+func (a *ReportsAPIService) MessagesReport(ctx context.Context, authorization string) ApiMessagesReportRequest {
 	return ApiMessagesReportRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 

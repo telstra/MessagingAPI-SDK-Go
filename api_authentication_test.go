@@ -25,9 +25,8 @@ func Test_TelstraMessaging_AuthenticationAPIService(t *testing.T) {
 		clientId := "YOUR CLIENT ID"
 		clientSecret := "YOUR CLIENT SECRET"
 
-		authApi := apiClient.AuthenticationAPI.AuthToken(context.Background())
-
-		oauthResult, resp, err := authApi.GetAuthToken(clientId, clientSecret)
+		authApi := apiClient.AuthenticationAPI.AuthToken(context.Background(), clientId, clientSecret)
+		oauthResult, resp, err := authApi.AuthToken()
 
 		if err != nil {
 			fmt.Println("Error:", err)

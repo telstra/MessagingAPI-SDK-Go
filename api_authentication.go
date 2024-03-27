@@ -69,18 +69,16 @@ An OAuth 2.0 access token is required to access the API features. To create a to
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiAuthTokenRequest
 */
-func (a *AuthenticationAPIService) AuthToken(ctx context.Context) ApiAuthTokenRequest {
+func (a *AuthenticationAPIService) AuthToken(ctx context.Context, clientId string, clientSecret string) ApiAuthTokenRequest {
 	return ApiAuthTokenRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:   a,
+		ctx:          ctx,
+		clientId:     &clientId,
+		clientSecret: &clientSecret,
 	}
 }
 
-func (r ApiAuthTokenRequest) GetAuthToken(clientId string, clientSecret string) (*OAuth, *http.Response, error) {
-	r.clientId = new(string)
-	*r.clientId = clientId
-	r.clientSecret = new(string)
-	*r.clientSecret = clientSecret
+func (r ApiAuthTokenRequest) AuthToken() (*OAuth, *http.Response, error) {
 	return r.Execute()
 }
 

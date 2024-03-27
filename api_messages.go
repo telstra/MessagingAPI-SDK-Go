@@ -87,11 +87,12 @@ Use this endpoint to delete a message that's been scheduled for sending, but has
 	@param messageId When you sent the original message, this is the UUID that was returned in the call response. Use this ID to fetch, update or delete a message with the appropriate endpoints.
 	@return ApiDeleteMessageByIdRequest
 */
-func (a *MessagesAPIService) DeleteMessageById(ctx context.Context, messageId string) ApiDeleteMessageByIdRequest {
+func (a *MessagesAPIService) DeleteMessageById(ctx context.Context, messageId string, authorization string) ApiDeleteMessageByIdRequest {
 	return ApiDeleteMessageByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		messageId:  messageId,
+		ApiService:    a,
+		ctx:           ctx,
+		messageId:     messageId,
+		authorization: &authorization,
 	}
 }
 
@@ -356,11 +357,12 @@ Use the **messageId** to fetch a message that's been sent from/to your account w
 	@param messageId When you sent the original message, this is the UUID that was returned in the response. Use this ID to fetch, update or delete a message with the appropriate endpoints.   Incoming messages are also assigned a messageId. Use this ID with GET/ messages/{messageId} to fetch the message later.
 	@return ApiGetMessageByIdRequest
 */
-func (a *MessagesAPIService) GetMessageById(ctx context.Context, messageId string) ApiGetMessageByIdRequest {
+func (a *MessagesAPIService) GetMessageById(ctx context.Context, messageId string, authorization string) ApiGetMessageByIdRequest {
 	return ApiGetMessageByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		messageId:  messageId,
+		ApiService:    a,
+		ctx:           ctx,
+		messageId:     messageId,
+		authorization: &authorization,
 	}
 }
 
@@ -724,10 +726,11 @@ Fetch messages that have been sent from/to your account in the last 30 days.
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetMessagesRequest
 */
-func (a *MessagesAPIService) GetMessages(ctx context.Context) ApiGetMessagesRequest {
+func (a *MessagesAPIService) GetMessages(ctx context.Context, authorization string) ApiGetMessagesRequest {
 	return ApiGetMessagesRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 
@@ -1024,10 +1027,11 @@ Free Trial users can message to up to 10 unique recipient numbers for free. The 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiSendMessagesRequest
 */
-func (a *MessagesAPIService) SendMessages(ctx context.Context) ApiSendMessagesRequest {
+func (a *MessagesAPIService) SendMessages(ctx context.Context, authorization string) ApiSendMessagesRequest {
 	return ApiSendMessagesRequest{
-		ApiService: a,
-		ctx:        ctx,
+		ApiService:    a,
+		ctx:           ctx,
+		authorization: &authorization,
 	}
 }
 
@@ -1319,11 +1323,12 @@ Need to update a message that's scheduled for sending? You can change any of the
 	@param messageId When you sent the original message, this is the UUID that was returned in the call response. Use this ID to fetch, update or delete a message with the appropriate endpoints.
 	@return ApiUpdateMessageByIdRequest
 */
-func (a *MessagesAPIService) UpdateMessageById(ctx context.Context, messageId string) ApiUpdateMessageByIdRequest {
+func (a *MessagesAPIService) UpdateMessageById(ctx context.Context, messageId string, authorization string) ApiUpdateMessageByIdRequest {
 	return ApiUpdateMessageByIdRequest{
-		ApiService: a,
-		ctx:        ctx,
-		messageId:  messageId,
+		ApiService:    a,
+		ctx:           ctx,
+		messageId:     messageId,
+		authorization: &authorization,
 	}
 }
 
@@ -1622,11 +1627,12 @@ Use the **messageId** to update the tag(s) assigned to a message. You can use th
 	@param messageId When you sent the original message, this is the UUID that was returned in the call response. Use this ID to fetch, update or delete a message with the appropriate endpoints.
 	@return ApiUpdateMessageTagsRequest
 */
-func (a *MessagesAPIService) UpdateMessageTags(ctx context.Context, messageId string) ApiUpdateMessageTagsRequest {
+func (a *MessagesAPIService) UpdateMessageTags(ctx context.Context, messageId string, authorization string) ApiUpdateMessageTagsRequest {
 	return ApiUpdateMessageTagsRequest{
-		ApiService: a,
-		ctx:        ctx,
-		messageId:  messageId,
+		ApiService:    a,
+		ctx:           ctx,
+		messageId:     messageId,
+		authorization: &authorization,
 	}
 }
 
