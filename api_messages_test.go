@@ -27,7 +27,7 @@ func Test_TelstraMessaging_MessagesAPIService(t *testing.T) {
 
 	clientId := "YOUR CLIENT ID"
 	clientSecret := "YOUR CLIENT SECRET"
-	authorization, _ := getAuthorization(apiClient, clientId, clientSecret)
+	authorization, _ := GetAuthorization(apiClient, clientId, clientSecret)
 
 	t.Run("Test MessagesAPIService DeleteMessageById", func(t *testing.T) {
 		//t.Skip("skip test") // remove to run test

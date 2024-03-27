@@ -25,7 +25,7 @@ func Test_TelstraMessaging_VirtualNumbersAPIService(t *testing.T) {
 
 	clientId := "YOUR CLIENT ID"
 	clientSecret := "YOUR CLIENT SECRET"
-	authorization, _ := getAuthorization(apiClient, clientId, clientSecret)
+	authorization, _ := GetAuthorization(apiClient, clientId, clientSecret)
 
 	t.Run("Test VirtualNumbersAPIService AssignNumber", func(t *testing.T) {
 

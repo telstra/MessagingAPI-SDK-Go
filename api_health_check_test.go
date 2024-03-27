@@ -23,7 +23,7 @@ func Test_TelstraMessaging_HealthCheckAPIService(t *testing.T) {
 
 	clientId := "YOUR CLIENT ID"
 	clientSecret := "YOUR CLIENT SECRET"
-	authorization, _ := getAuthorization(apiClient, clientId, clientSecret)
+	authorization, _ := GetAuthorization(apiClient, clientId, clientSecret)
 
 	t.Run("Test HealthCheckAPIService HealthCheck", func(t *testing.T) {
 

@@ -17,7 +17,7 @@ type RequestParams struct {
 	Scope             string
 }
 
-func setRequestParams() *RequestParams {
+func SetRequestParams() *RequestParams {
 	return &RequestParams{
 		ContentType:       "application/json",
 		Accept:            "application/json",
@@ -29,7 +29,7 @@ func setRequestParams() *RequestParams {
 	}
 }
 
-func getAuthorization(apiClient *APIClient, clientId string, clientSecret string) (string, error) {
+func GetAuthorization(apiClient *APIClient, clientId string, clientSecret string) (string, error) {
 	authApi := apiClient.AuthenticationAPI.AuthToken(context.Background())
 	authApi.clientId = &clientId
 	authApi.clientSecret = &clientSecret

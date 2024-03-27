@@ -73,15 +73,15 @@ func (r ApiCreateTrialNumbersRequest) TelstraApiVersion(telstraApiVersion string
 
 func (r ApiCreateTrialNumbersRequest) Execute() (*FreeTrialNumbers, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.CreateTrialNumbersExecute(r)
 }
@@ -360,15 +360,15 @@ func (r ApiGetTrialNumbersRequest) TelstraApiVersion(telstraApiVersion string) A
 
 func (r ApiGetTrialNumbersRequest) Execute() (*FreeTrialNumbers, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 	return r.ApiService.GetTrialNumbersExecute(r)
 }
 

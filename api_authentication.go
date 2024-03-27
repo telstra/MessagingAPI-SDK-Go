@@ -54,9 +54,9 @@ func (r ApiAuthTokenRequest) Scope(scope string) ApiAuthTokenRequest {
 
 func (r ApiAuthTokenRequest) Execute() (*OAuth, *http.Response, error) {
 	r.grantType = new(string)
-	*r.grantType = setRequestParams().GrantType
+	*r.grantType = SetRequestParams().GrantType
 	r.scope = new(string)
-	*r.scope = setRequestParams().Scope
+	*r.scope = SetRequestParams().Scope
 
 	return r.ApiService.AuthTokenExecute(r)
 }

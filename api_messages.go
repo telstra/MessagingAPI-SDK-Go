@@ -65,15 +65,15 @@ func (r ApiDeleteMessageByIdRequest) TelstraApiVersion(telstraApiVersion string)
 
 func (r ApiDeleteMessageByIdRequest) Execute() (*http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.DeleteMessageByIdExecute(r)
 }
@@ -334,15 +334,15 @@ func (r ApiGetMessageByIdRequest) TelstraApiVersion(telstraApiVersion string) Ap
 
 func (r ApiGetMessageByIdRequest) Execute() (*MessageGet, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.GetMessageByIdExecute(r)
 }
@@ -703,15 +703,15 @@ func (r ApiGetMessagesRequest) EndTime(endTime time.Time) ApiGetMessagesRequest 
 
 func (r ApiGetMessagesRequest) Execute() (*GetMessages200Response, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.GetMessagesExecute(r)
 }
@@ -1002,15 +1002,15 @@ func (r ApiSendMessagesRequest) TelstraApiVersion(telstraApiVersion string) ApiS
 
 func (r ApiSendMessagesRequest) Execute() (*MessageSent, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 	return r.ApiService.SendMessagesExecute(r)
 }
 
@@ -1297,15 +1297,15 @@ func (r ApiUpdateMessageByIdRequest) TelstraApiVersion(telstraApiVersion string)
 
 func (r ApiUpdateMessageByIdRequest) Execute() (*MessageUpdate, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.UpdateMessageByIdExecute(r)
 }
@@ -1600,15 +1600,15 @@ func (r ApiUpdateMessageTagsRequest) TelstraApiVersion(telstraApiVersion string)
 
 func (r ApiUpdateMessageTagsRequest) Execute() (*http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.UpdateMessageTagsExecute(r)
 }

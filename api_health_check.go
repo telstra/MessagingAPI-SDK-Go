@@ -38,7 +38,7 @@ func (r ApiHealthCheckRequest) TelstraApiVersion(telstraApiVersion string) ApiHe
 
 func (r ApiHealthCheckRequest) Execute() (*HealthCheck200Response, *http.Response, error) {
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 	return r.ApiService.HealthCheckExecute(r)
 }
 

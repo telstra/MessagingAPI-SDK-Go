@@ -26,7 +26,7 @@ func Test_TelstraMessaging_ReportsAPIService(t *testing.T) {
 
 	clientId := "YOUR CLIENT ID"
 	clientSecret := "YOUR CLIENT SECRET"
-	authorization, _ := getAuthorization(apiClient, clientId, clientSecret)
+	authorization, _ := GetAuthorization(apiClient, clientId, clientSecret)
 
 	t.Run("Test ReportsAPIService GetReport", func(t *testing.T) {
 

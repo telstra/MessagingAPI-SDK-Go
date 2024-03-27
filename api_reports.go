@@ -64,15 +64,15 @@ func (r ApiGetReportRequest) TelstraApiVersion(telstraApiVersion string) ApiGetR
 
 func (r ApiGetReportRequest) Execute() (*GetReport200Response, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 
 	return r.ApiService.GetReportExecute(r)
 }
@@ -343,15 +343,15 @@ func (r ApiGetReportsRequest) TelstraApiVersion(telstraApiVersion string) ApiGet
 
 func (r ApiGetReportsRequest) Execute() (*GetReports200Response, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 	return r.ApiService.GetReportsExecute(r)
 }
 
@@ -607,15 +607,15 @@ func (r ApiMessagesReportRequest) TelstraApiVersion(telstraApiVersion string) Ap
 
 func (r ApiMessagesReportRequest) Execute() (*MessagesReport201Response, *http.Response, error) {
 	r.contentType = new(string)
-	*r.contentType = setRequestParams().ContentType
+	*r.contentType = SetRequestParams().ContentType
 	r.accept = new(string)
-	*r.accept = setRequestParams().Accept
+	*r.accept = SetRequestParams().Accept
 	r.acceptCharset = new(string)
-	*r.acceptCharset = setRequestParams().AcceptCharset
+	*r.acceptCharset = SetRequestParams().AcceptCharset
 	r.contentLanguage = new(string)
-	*r.contentLanguage = setRequestParams().ContentLanguage
+	*r.contentLanguage = SetRequestParams().ContentLanguage
 	r.telstraApiVersion = new(string)
-	*r.telstraApiVersion = setRequestParams().TelstraApiVersion
+	*r.telstraApiVersion = SetRequestParams().TelstraApiVersion
 	return r.ApiService.MessagesReportExecute(r)
 }
 
