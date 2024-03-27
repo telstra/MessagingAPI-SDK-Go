@@ -158,10 +158,7 @@ apiClient := msg_sdk.NewAPIClient(configuration)
 clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 
-authApi := apiClient.AuthenticationAPI.AuthToken(context.Background())
-authApi.clientId = &clientId
-authApi.clientSecret = &clientSecret
-
+authApi := apiClient.AuthenticationAPI.AuthToken(context.Background(), clientId, clientSecret)
 oauthResult, resp, err := authApi.AuthToken()
 
 ```
@@ -214,16 +211,15 @@ apiClient := msg_sdk.NewAPIClient(configuration)
 
 clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
-authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
+authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)
 
 trialNumbers := []string{"0400000001", "0400000002"}
 createTrialNumbersRequestFreeTrialNumbers := msg_sdk.ArrayOfStringAsCreateTrialNumbersRequestFreeTrialNumbers(&trialNumbers)
 createTrialNumbersRequest := msg_sdk.NewCreateTrialNumbersRequest(createTrialNumbersRequestFreeTrialNumbers)
 
-trialNumbersApi := apiClient.FreeTrialNumbersAPI.CreateTrialNumbers(context.Background())
-trialNumbersApi.authorization = &authorization
-
-resp, httpRes, err := trialNumbersApi.CreateTrialNumbers(*createTrialNumbersRequest)	
+trialNumbersApi := apiClient.FreeTrialNumbersAPI.CreateTrialNumbers(context.Background(), authorization)
+resp, httpRes, err := trialNumbersApi.CreateTrialNumbers(*createTrialNumbersRequest)
+	
 
 ```
 
@@ -261,10 +257,9 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-trialNumbersApi := apiClient.FreeTrialNumbersAPI.GetTrialNumbers(context.Background())
-trialNumbersApi.authorization = &authorization
+trialNumbersApi := apiClient.FreeTrialNumbersAPI.GetTrialNumbers(context.Background(), authorization)
+resp, httpRes, err := trialNumbersApi.GetTrialNumbers()
 
-resp, httpRes, err := trialNumbersApi.GetTrialNumbers()	
 
 ```
 
@@ -335,10 +330,8 @@ assignNumberRequest := msg_sdk.NewAssignNumberRequest()
 assignNumberRequest.SetReplyCallbackUrl("http://www.example.com")
 assignNumberRequest.SetTags(tags)
 
-vnApi := apiClient.VirtualNumbersAPI.AssignNumber(context.Background())
-vnApi.authorization = &authorization
-
-resp, httpRes, err := vnApi.AssignNumber(*assignNumberRequest)	
+vnApi := apiClient.VirtualNumbersAPI.AssignNumber(context.Background(), authorization)
+resp, httpRes, err := vnApi.AssignNumber(*assignNumberRequest)
 
 ```
 
@@ -381,9 +374,7 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-vnApi := apiClient.VirtualNumbersAPI.GetVirtualNumber(context.Background(), virtualNumber)
-vnApi.authorization = &authorization
-
+vnApi := apiClient.VirtualNumbersAPI.GetVirtualNumber(context.Background(), virtualNumber, authorization)
 resp, httpRes, err := vnApi.GetVirtualNumber()
 
 ```
@@ -427,10 +418,8 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 	
-vnApi := apiClient.VirtualNumbersAPI.GetNumbers(context.Background())
-vnApi.authorization = &authorization
-
-resp, httpRes, err := vnApi.GetNumbers()	
+vnApi := apiClient.VirtualNumbersAPI.GetNumbers(context.Background(), authorization)
+resp, httpRes, err := vnApi.GetNumbers()
 
 ```
 
@@ -476,7 +465,6 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-
 updateNumberRequest := msg_sdk.NewUpdateNumberRequest()
 updateNumberRequest.SetReplyCallbackUrl("http://www.example.com")
 tags := []string{
@@ -493,9 +481,7 @@ tags := []string{
 }
 updateNumberRequest.SetTags(tags)
 
-vnApi := apiClient.VirtualNumbersAPI.UpdateNumber(context.Background(), virtualNumber)
-vnApi.authorization = &authorization
-
+vnApi := apiClient.VirtualNumbersAPI.UpdateNumber(context.Background(), virtualNumber, authorization)
 resp, httpRes, err := vnApi.UpdateNumber(*updateNumberRequest)
 
 ```
@@ -533,9 +519,7 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-vnApi := apiClient.VirtualNumbersAPI.DeleteNumber(context.Background(), virtualNumber)
-vnApi.authorization = &authorization
-
+vnApi := apiClient.VirtualNumbersAPI.DeleteNumber(context.Background(), virtualNumber, authorization)
 httpRes, err := vnApi.DeleteNumber()
 
 ```
@@ -586,9 +570,7 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-vnApi := apiClient.VirtualNumbersAPI.GetRecipientOptouts(context.Background(), virtualNumber)
-vnApi.authorization = &authorization
-
+vnApi := apiClient.VirtualNumbersAPI.GetRecipientOptouts(context.Background(), virtualNumber, authorization)
 resp, httpRes, err := vnApi.GetRecipientOptouts()
 
 ```
@@ -662,6 +644,12 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
+sendMessagesSlice := []string{"0400000001", "0400000002"}
+sendMessagesRequestTo := msg_sdk.SendMessagesRequestTo{
+	ArrayOfString: &sendMessagesSlice,
+	String:        new(string),
+}
+
 sendMessagesFrom := "0428180739"
 sendMessagesRequest := msg_sdk.NewSendMessagesRequest(sendMessagesRequestTo, sendMessagesFrom)
 setMessageContent := "Hello customer, this is from CBA to confirme your offer!"
@@ -687,9 +675,7 @@ sendMessagesRequest.SetScheduleSend(time.Now().AddDate(0, 0, 5).UTC())
 
 sendMessagesRequest.SetTags(tags)
 
-messagesApi := apiClient.MessagesAPI.SendMessages(context.Background())
-messagesApi.authorization = &authorization
-
+messagesApi := apiClient.MessagesAPI.SendMessages(context.Background(), authorization)
 resp, httpRes, err := messagesApi.SendMessages(*sendMessagesRequest)
 ```
 
@@ -746,11 +732,9 @@ apiClient := msg_sdk.NewAPIClient(configuration)
 clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
-	
-messagesApi := apiClient.MessagesAPI.GetMessageById(context.Background(), messageId)
-messagesApi.authorization = &authorization
 
-resp, httpRes, err := messagesApi.GetMessageById()	
+messagesApi := apiClient.MessagesAPI.GetMessageById(context.Background(), messageId, authorization)
+resp, httpRes, err := messagesApi.GetMessageById()
 
 ```
 
@@ -794,14 +778,13 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-messagesApi := apiClient.MessagesAPI.GetMessages(context.Background())
-messagesApi.authorization = &authorization
+messagesApi := apiClient.MessagesAPI.GetMessages(context.Background(), authorization)
 reverse := true
-messagesApi.reverse = &reverse
+messagesApi.Reverse(reverse)
 startTime := time.Now().AddDate(0, 0, -5).UTC()
-messagesApi.startTime = &startTime
+messagesApi.StartTime(startTime)
 endTime := time.Now().AddDate(0, 0, -1).UTC()
-messagesApi.endTime = &endTime
+messagesApi.EndTime(endTime)
 
 resp, httpRes, err := messagesApi.GetMessages()
 		
@@ -880,6 +863,7 @@ clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
 updateMessageByIdRequest := msg_sdk.NewUpdateMessageByIdRequest("0400000001", "0428180739")
+
 setMessageContent := "Ut veniam in ipsum exercitation"
 updateMessageByIdRequest.SetMessageContent(setMessageContent)
 updateMessageByIdRequest.SetDeliveryNotification(false)
@@ -900,9 +884,7 @@ tags := []string{
 }
 updateMessageByIdRequest.SetTags(tags)
 
-messagesApi := apiClient.MessagesAPI.UpdateMessageById(context.Background(), messageId)
-messagesApi.authorization = &authorization
-
+messagesApi := apiClient.MessagesAPI.UpdateMessageById(context.Background(), messageId, authorization)
 resp, httpRes, err := messagesApi.UpdateMessageById(*updateMessageByIdRequest)	
 
 ```
@@ -946,9 +928,7 @@ authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)
 tags := []string{"marketing", "SMS"}
 updateMessageTagsRequest := msg_sdk.NewUpdateMessageTagsRequest(tags)
 
-messagesApi := apiClient.MessagesAPI.UpdateMessageTags(context.Background(), messageId)
-messagesApi.authorization = &authorization
-
+messagesApi := apiClient.MessagesAPI.UpdateMessageTags(context.Background(), messageId, authorization)
 httpRes, err := messagesApi.UpdateMessageTags(*updateMessageTagsRequest)
 ```
 
@@ -987,10 +967,9 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-messagesApi := apiClient.MessagesAPI.DeleteMessageById(context.Background(), messageId)
-messagesApi.authorization = &authorization
+messagesApi := apiClient.MessagesAPI.DeleteMessageById(context.Background(), messageId, authorization)
+httpRes, err := messagesApi.DeleteMessageById()
 
-httpRes, err := messagesApi.DeleteMessageById()	
 
 ```
 
@@ -1059,9 +1038,7 @@ threeDaysAgoFormatted := threeDaysAgo.Format("2006-01-02")
 oneDayAgoFormatted := oneDayAgo.Format("2006-01-02")
 messageReportRequest := msg_sdk.NewMessagesReportRequest(threeDaysAgoFormatted, oneDayAgoFormatted)
 
-reportsApi := apiClient.ReportsAPI.MessagesReport(context.Background())
-reportsApi.authorization = &authorization
-
+reportsApi := apiClient.ReportsAPI.MessagesReport(context.Background(), authorization)
 resp, httpRes, err := reportsApi.MessagesReport(*messageReportRequest)
 ```
 
@@ -1106,10 +1083,7 @@ clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
 reportId := "c22d2050-eb37-11ee-ad5e-3d9263246ccb"
-
-reportsApi := apiClient.ReportsAPI.GetReport(context.Background(), reportId)
-reportsApi.authorization = &authorization
-
+reportsApi := apiClient.ReportsAPI.GetReport(context.Background(), reportId, authorization)
 resp, httpRes, err := reportsApi.GetReport()
 ```
 
@@ -1153,10 +1127,8 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-reportsApi := apiClient.ReportsAPI.GetReports(context.Background())
-reportsApi.authorization = &authorization
-
-resp, httpRes, err := reportsApi.GetReports()	
+reportsApi := apiClient.ReportsAPI.GetReports(context.Background(), authorization)
+resp, httpRes, err := reportsApi.GetReports()
 
 ```
 
@@ -1196,9 +1168,7 @@ clientId := "YOUR CLIENT ID"
 clientSecret := "YOUR CLIENT SECRET"
 authorization, _ := msg_sdk.GetAuthorization(apiClient, clientId, clientSecret)	
 
-healthCheckApi := apiClient.HealthCheckAPI.HealthCheck(context.Background())
-healthCheckApi.authorization = &authorization
-
+healthCheckApi := apiClient.HealthCheckAPI.HealthCheck(context.Background(), authorization)
 resp, httpRes, err := healthCheckApi.HealthCheck()
 
 ```
