@@ -76,7 +76,11 @@ func (a *AuthenticationAPIService) AuthToken(ctx context.Context) ApiAuthTokenRe
 	}
 }
 
-func (r ApiAuthTokenRequest) AuthToken() (*OAuth, *http.Response, error) {
+func (r ApiAuthTokenRequest) GetAuthToken(clientId string, clientSecret string) (*OAuth, *http.Response, error) {
+	r.clientId = new(string)
+	*r.clientId = clientId
+	r.clientSecret = new(string)
+	*r.clientSecret = clientSecret
 	return r.Execute()
 }
 
